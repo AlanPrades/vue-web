@@ -21,9 +21,11 @@
             <Button variant="tertiarius" size="elongatis">
                 <RouterLink to="/">Exit</RouterLink>
             </Button>
+
             <Button variant="tertiarius" size="elongatis">
-                <RouterLink to="">Enter</RouterLink>
+                <RouterLink to="/simpson/about">Enter</RouterLink>
             </Button>
+
         </div>
 
         <div class="flex gap-12">
