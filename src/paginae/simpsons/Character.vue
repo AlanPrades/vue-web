@@ -1,46 +1,135 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { characters, type Character } from './data';
+import { CheckIcon, ChevronsUpDownIcon } from '@lucide/vue'
+
+import { cn } from 'cn'
+import { Button } from '@/components/ui/button'
+
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from '@/components/ui/command'
+
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover'
 
 
 const route = useRoute()
 const router = useRouter()
 
 const character = ref<Character | undefined>(
-    characters.find(char => char.id === Number(route.params.id))
+    characters.find(char => char.id === Number(route.params.id)) 
 )
+
+const simpsons = characters.map(char => ({
+  value: char.id.toString(),
+  label: char.nomen
+}))
+
+const open = ref(false)
+const value = ref(route.params.id?.toString())
+
+watch(()=> route.params.id, (newId) => {
+  character.value = characters.find(char => char.id === Number(newId))
+  value.value = newId?.toString() || ''
+})
+
+const selectCharacter = (characterId: string) => {
+  value.value = characterId
+  open.value = false
+  router.push(`/simpsons/gallery/${ characterId }`)
+}
+
+const selectedLabel = computed(() => {
+  if (!value.value) return 'Selecciona un personaje ...'
+  return simpsons.find( simpsom => simpsom.value === value.value)?.label || 'Selecciona un personaje ...'
+})
 
 </script>
 
 <template>
 
-    <div 
-        class="flex flex-col lg:flex-row lg:justify-between lg:items-center gap-8"
-        v-if="character"
-    >
+  <div v-if="character" class="w-full max-w-page md:mx-auto my-8 px-5 md:px-20">
+    <div class="mb-8">
 
-        <div>
-            <h1 class="titulus-quote"> 
-                {{ character.nomen }}
-            </h1>
+      <label class="block text-slg font-semibold mb-2 text-gray-800">Buscar personaje:</label>
 
-            <div class="info-quote" @click="router.push('/simpsons/gallery')">
-                <p class="descriptione">
-                    {{ character.descriptione }}
-                </p>
-                        
-                <div class="arca-quote">
-                    <p class="quote"> « {{ character.quote }} »</p>
-                </div>
-            </div>
+      <Popover v-model:open="open">
+        <PopoverTrigger as-child>
+          <Button
+            variant="outline"
+            role="combobox"
+            :aria-expanded="open"
+            class="w-[200px] justify-between bg-red-500 hover:bg-simpsons-yellow text-white border border-2 border-black font-semibold shadow-md"
+          >
+            {{ selectedLabel }}
+            <ChevronsUpDownIcon class="ml-2 h-4 w-4 shrink-0 opacity-50" />
+          </Button>
+        </PopoverTrigger>
+        <PopoverContent class="w-[200px] p-0 border-2 border-black bg-white">
+          <Command>
+            <CommandInput placeholder="Buscar ..." class="border-2 border-gray-200" />
+            <CommandList>
+              <CommandEmpty>No se encontró</CommandEmpty>
+              <CommandGroup>
+                <CommandItem
+                  v-for="simpson in simpsons"
+                  :key="simpson.value"
+                  :value="simpson.value"
+                  @select="selectCharacter(simpson.value)"
+                  class="data-[highlighted]:bg-black data-[highlighted]:text-white cursor-pointer"
+                >
+                  <CheckIcon
+                    :class="cn(
+                      'mr-2 h-4 w-4',
+                      value === simpson.value ? 'opacity-100' : 'opacity-0',
+                    )"
+                  />
+                  {{ simpson.label }}
+                </CommandItem>
+              </CommandGroup>
+            </CommandList>
+          </Command>
+        </PopoverContent>
+      </Popover>
+    </div>
+
+    <div class="flex flex-col lg:flex-row lg:justify-between lg:items-center gap-8">
+      <div>
+        <h1 class="titulus-quote"> 
+          {{ character.nomen }}
+        </h1>
+
+        <div class="info-quote" @click="router.push('/simpsons/gallery')">
+          <p class="descriptione">
+            {{ character.descriptione }}
+          </p>
+                          
+          <div class="arca-quote">
+            <p class="quote"> « {{ character.quote }} »</p>
+          </div>
+
         </div>
 
-        <figure class="figure-quote">
-        <img :src="`/imagines/simpsons/${ character.imago }`" alt="" />
-        </figure>
+      </div>
+
+          <figure class="figure-quote">
+          <img :src="`/imagines/simpsons/${ character.imago }`" alt="" />
+          </figure>
 
     </div>
+  </div>
+
+  
 
 </template>
 
