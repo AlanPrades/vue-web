@@ -14,21 +14,21 @@ import LogoSimpsons from '@/components/ui/LogoSimpsons.vue';
            
                 <div class="flex gap-6 pt-3">
                     <RouterLink 
-                        to="/simpson/gallery"
+                        to="/simpsons/gallery"
                         active-class="font-bold"
                     >
                         Characters
                     </RouterLink>
 
                     <RouterLink
-                        to="/simpson/about"
+                        to="/simpsons/about"
                         active-class="font-bold"
                     >
                         About
                     </RouterLink>
 
                     <Button variant="tertiarius" size="elongatis">
-                        <RouterLink to="/simpson">Exit</RouterLink>
+                        <RouterLink to="/simpsons">Exit</RouterLink>
                     </Button> 
                 </div>
             </div>
@@ -43,7 +43,6 @@ import LogoSimpsons from '@/components/ui/LogoSimpsons.vue';
             <div>
                 <strong> All Rights Reserved</strong> - Oh Lord Matt Groening - 1989 -2023
             </div>
-
                 <small>
                     This app was done by Alan Prades
                 </small>

@@ -29,7 +29,7 @@ import { Button } from '@/components/ui/button'
       </Button>
 
       <Button variant="domus" class="mr-2">
-        <RouterLink to="/simpson">Simpson</RouterLink>
+        <RouterLink to="/simpsons">Simpson</RouterLink>
       </Button>
 
       <Button variant="domus" class="mr-2">

@@ -1,16 +1,17 @@
 <script setup lang="ts">
 
-    interface Props {
-        estilus:string
-    }
+interface Props {
+    estilus:string
+}
 
-    defineProps<Props>()
+defineProps<Props>()
 
 </script>
 
 <template>
-    <svg width="727" height="308" viewBox="0 0 727 308" fill="none" xmlns="http://www.w3.org/2000/svg" 
-        :class="estilus" 
+    <svg 
+        :class="estilus"
+        width="727" height="308" viewBox="0 0 727 308" fill="none" xmlns="http://www.w3.org/2000/svg" 
     >
         
         <g clip-path="url(#clip0_556_221)">

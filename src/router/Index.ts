@@ -23,11 +23,11 @@ export const router = createRouter({
             component: Batman
         },
         {
-            path: "/simpson",
+            path: "/simpsons",
             children: [
                 {
                     path: "",                   //simpson
-                    name: "simpson",
+                    name: "simpsons",
                     component: Primus
                 },
                {
@@ -36,7 +36,7 @@ export const router = createRouter({
                     children:[
                         {
                             path: "",
-                            name: "simpson-about",               //simpson/about/
+                            name: "simpsons-about",               //simpson/about/
                             component: Circa
                         } 
                     ]
@@ -47,16 +47,17 @@ export const router = createRouter({
                     children:[
                         {
                             path: "",
-                            name: "simpson-gallery",              //simpson/gallery/
+                            name: "simpsons-characters",              //simpson/gallery/
                             component: Collectione
-                        } 
+                        },
+                        {
+                            path: ":id",                               //simpson/gallery/23
+                            name: "simpsons-character",
+                            component: Character
+                        }
                     ]
-               },
-               {
-                path: ":id",
-                name: "simpson-detail",
-                component: Character
                }
+               
             ],
         },
         {

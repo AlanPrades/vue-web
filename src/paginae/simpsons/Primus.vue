@@ -21,28 +21,17 @@
             <Button variant="tertiarius" size="elongatis">
                 <RouterLink to="/">Exit</RouterLink>
             </Button>
-
             <Button variant="tertiarius" size="elongatis">
-                <RouterLink to="/simpson/about">Enter</RouterLink>
+                <RouterLink to="/simpsons/about">Enter</RouterLink>
             </Button>
-
         </div>
 
         <div class="flex gap-12">
-
             <img class="object-contain hidden md:block" src="/imagines/simpsons/bart.png" width="200px" />
-
             <img class="object-contain hidden md:block mt-20" src="/imagines/simpsons/homer.png" width="195px" />
-
             <img class="object-contain mt-12 md:mt-0" src="/imagines/simpsons/moe.png" width="220px" />
-
         </div>
 
-
-
-
     </div>
-
-    
 
 </template>

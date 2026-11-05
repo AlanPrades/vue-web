@@ -1,29 +1,29 @@
 <script setup lang="ts">
-    import { Card, CardContent } from '@/components/ui/card'
-    import { computed, ref } from 'vue';
-    import { characters, type Character } from './data';
+import { Card, CardContent } from '@/components/ui/card'
+import { computed, ref } from 'vue';
+import { characters, type Character } from './data';
+import { useRouter } from 'vue-router';
 
-    
+const router = useRouter()
 
-    const inPagina = 6
+const inPagina = 6
+const nuncPagina = ref(1)
 
-    const nuncPagina = ref(1)
+const totalPaginae = Math.ceil(characters.length / inPagina)
 
-    const totalPaginae = Math.ceil(characters.length / inPagina)
+const listaSimpsons = computed(() => {
+    const inicio = (nuncPagina.value - 1) * inPagina
+    const fin = inicio + inPagina
+    return characters.slice(inicio, fin)
+})
 
-    const listaSimpsons = computed(() => {
-        const inicio = (nuncPagina.value - 1) * inPagina
-        const fin = inicio + inPagina
-        return characters.slice(inicio, fin)
-    })
+const ireAdPaginam = (pagina: number) => {
+    if (pagina >= 1 && pagina <= totalPaginae) {
+        nuncPagina.value = pagina
+    } 
+}
 
-    const ireAdPaginam = (pagina: number) => {
-        if (pagina >= 1 && pagina <= totalPaginae) {
-            nuncPagina.value = pagina
-        } 
-    }
-
-    const paginaNumeri: number[] = [ ...Array(totalPaginae) ].map((_, i) => i + 1)
+const paginaNumeri: number[] = [ ...Array(totalPaginae) ].map((_, i) => i + 1)
 
 </script>
 
@@ -42,7 +42,10 @@
                 v-for="character in listaSimpsons"
                 :key="character.id"
             >
-                <CardContent class="flex flex-col items-center gap-1 w-full px-0">
+                <CardContent
+                    @click="router.push(`/simpsons/gallery/${ character.id }`)"
+                    class="flex flex-col items-center gap-1 w-full px-0"
+                >
                     <img 
                         :src="`/imagines/simpsons/${ character.imago }`"
                         class="w-48 h-42 object-cover object-top mt-2 bg-simpsons-yellow border border-black rounded-t-md"
