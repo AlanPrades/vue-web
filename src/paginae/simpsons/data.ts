@@ -1,10 +1,10 @@
 
-interface Character {
-    id: number
-    nomen: string
-    imago: string
-    quote: string
-    descriptione: string
+export interface Character {
+  id: number;
+  nomen: string;
+  imago: string;
+  quote: string;
+  descriptione: string;
 }
 
 export const characters: Character[] = [
