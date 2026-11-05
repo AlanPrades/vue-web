@@ -1,15 +1,31 @@
 <script setup lang="ts">
 import { Button } from '@/components/ui/button'
+
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog'
+import { Input } from '@/components/ui/input'
+import { ref } from 'vue';
+
+const dialogApertaEst = ref<boolean>(false)
+const quaestio = ref<string>("")
+
 </script>
 
 <template>
 
   <div class="bg-domus-navy h-screen w-screen text-white font-sans text-center flex flex-col items-center justify-center gap-12 fixed overflow-hidden">
-
+    
     <img class="absolute opacity-20" src="/imagines/tonitrui.png"/>
 
     <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold pb-20 transition-all z-10">
-      <span class="text-domus-cyan ">Diseño</span> Web y 
+      <span class="text-domus-cyan ">Diseño</span> Web y
       <br>
       Apps <span class="text-domus-cyan">Interactivas</span>
     </h1>
@@ -19,10 +35,30 @@ import { Button } from '@/components/ui/button'
     </p>
 
     <div class="z-10">
-
-      <Button variant="domus" class="mr-2">
-        <RouterLink to="/indecision">Sí o no</RouterLink>
-      </Button>
+      <Dialog
+        :open="dialogApertaEst"
+        @update:open="dialogApertaEst = $event"
+      >
+        <DialogTrigger as-child>
+          <Button variant="domus" class="mr-2">
+            Sí o no
+          </Button>
+        </DialogTrigger>
+        <DialogContent class="sm:max-w-[425px] bg-domus-navy text-white border-domus-cyan">
+          <DialogHeader>
+            <DialogTitle class="text-white">Pregúntame</DialogTitle>
+            <DialogDescription class="text-gray-300">
+              No sigas con tus dudas, yo te responderé SÍ o NO.
+            </DialogDescription>
+          </DialogHeader>
+          <div class="mt-4">
+            <Input 
+              class="bg-domus-navy-input text-white placeholder:text-gray-400" placeholder="Escribe aquí tu pregunta..." 
+              v-model="quaestio"
+            />
+          </div>
+        </DialogContent>
+      </Dialog>
 
       <Button variant="domus" class="mr-2">
         <RouterLink to="/batman">Batman</RouterLink>
@@ -37,6 +73,7 @@ import { Button } from '@/components/ui/button'
       </Button>
 
     </div>
+
   </div>
 </template>
 
