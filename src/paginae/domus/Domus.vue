@@ -13,6 +13,12 @@ import {
 import { Input } from '@/components/ui/input'
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+import {Heart} from '@lucide/vue'
+import { useFavoritosStore } from '@/stores/useFavoritos';
+import { storeToRefs } from 'pinia';
+
+const favoritosStore = useFavoritosStore()
+    const { totalFavoritos } = storeToRefs(favoritosStore)
 
 const dialogApertaEst = ref<boolean>(false)
 const quaestio = ref<string>("")
@@ -86,8 +92,14 @@ const cumKeyPressumEnter = (eventus: KeyboardEvent) => {
         <RouterLink to="/simpsons">Simpson</RouterLink>
       </Button>
 
-      <Button variant="domus" class="mr-2">
-        <a href="https://www.upv.es">UPV</a>
+      <Button variant="default" class="relative mr-2 bg-simpsons-red md:py-5 md:px-6 md:text-lg hover:bg-simpsons-red/80 transition-all">
+        <RouterLink to="" class="flex items-center gap-2">
+          <Heart class="w-5 h-5 fill-current"/>
+          Favoritos
+          <span class="absolute -top-3 -right-2 bg-yellow-400 text-black text-base w-6.5 h-6.5 rounded-full felx items-center justify-center font-bold">
+            {{ totalFavoritos }}
+          </span>
+        </RouterLink>
       </Button>
 
     </div>
