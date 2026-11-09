@@ -36,11 +36,11 @@ const simpsons = characters.map(char => ({
 }))
 
 const open = ref(false)
-const value = ref(route.params.id?.toString())
+const value = ref(route.params.id?.toString()) || '';
 
 watch(()=> route.params.id, (newId) => {
   character.value = characters.find(char => char.id === Number(newId))
-  value.value = newId?.toString() || ''
+  value.value = newId?.toString() || '';
 })
 
 const selectCharacter = (characterId: string) => {
